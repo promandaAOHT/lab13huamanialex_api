@@ -1,0 +1,10 @@
+CREATE DATABASE IF NOT EXISTS LINQExample CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE LINQExample;
+CREATE TABLE Clients (ClientId INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(100) NOT NULL, Email VARCHAR(100) NOT NULL);
+CREATE TABLE Products (ProductId INT AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(100) NOT NULL, Description VARCHAR(100), Price DECIMAL(10,2) NOT NULL);
+CREATE TABLE Orders (OrderId INT AUTO_INCREMENT PRIMARY KEY, ClientId INT NOT NULL, OrderDate DATETIME NOT NULL, FOREIGN KEY (ClientId) REFERENCES Clients(ClientId));
+CREATE TABLE OrderDetails (OrderDetailId INT AUTO_INCREMENT PRIMARY KEY, OrderId INT NOT NULL, ProductId INT NOT NULL, Quantity INT NOT NULL, FOREIGN KEY (OrderId) REFERENCES Orders(OrderId), FOREIGN KEY (ProductId) REFERENCES Products(ProductId));
+INSERT INTO Clients (Name,Email) VALUES ('Juan Pérez','juan.perez@example.com'),('Ana Gómez','ana.gomez@example.com'),('Carlos Díaz','carlos.diaz@example.com'),('Lucía Martínez','lucia.martinez@example.com');
+INSERT INTO Products (Name,Price,Description) VALUES ('Producto A',10.50,'This product is cheap'),('Producto B',25.00,'This product is pretty'),('Producto C',15.75,'This product is awesome'),('Producto D',30.20,NULL);
+INSERT INTO Orders (ClientId,OrderDate) VALUES (1,'2025-05-01'),(1,'2025-05-02'),(2,'2025-05-03'),(2,'2025-05-04'),(3,'2025-05-05'),(3,'2025-05-06'),(4,'2025-05-07');
+INSERT INTO OrderDetails (OrderId,ProductId,Quantity) VALUES (1,2,2),(1,1,1),(2,3,1),(2,4,1),(3,1,3),(3,2,2),(4,3,1);
